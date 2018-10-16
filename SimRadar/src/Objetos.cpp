@@ -7,7 +7,7 @@ Objetos::Objetos()
     //ctor
 }
 
-Objetos::Objetos(std::vector<int>reflectorc):reflector(reflectorc)
+Objetos::Objetos(std::vector<double>reflectorc, double srcc, std::vector<double> velc):reflector(reflectorc),src(srcc), vel(velc)
 {
     std::cout<<"El objeto se construyo"<<std::endl;
 }
@@ -21,12 +21,12 @@ Objetos::~Objetos()
 
 // Other methods
 
-std::vector<int> Objetos::get()
+std::vector<double> Objetos::get_pos()
 {
     return this->reflector;
 }
 
-void Objetos::set(std::vector<int> vectorI)
+void Objetos::set_pos(std::vector<double> vectorI)
 {
     this->reflector = vectorI;
 }
