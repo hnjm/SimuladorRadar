@@ -1,0 +1,19 @@
+# depslib dependency file v1.0
+1539711179 source:c:\users\usuario\documents\github\simuladorradar\simradar\main.cpp
+	<iostream>
+	"Antena.h"
+	"Objetos.h"
+
+1539701749 c:\users\usuario\documents\github\simuladorradar\simradar\include\antena.h
+
+1539702059 source:c:\users\usuario\documents\github\simuladorradar\simradar\src\antena.cpp
+	"Antena.h"
+	<iostream>
+
+1539711203 c:\users\usuario\documents\github\simuladorradar\simradar\include\objetos.h
+	<vector>
+
+1539711345 source:c:\users\usuario\documents\github\simuladorradar\simradar\src\objetos.cpp
+	"Objetos.h"
+	<iostream>
+
