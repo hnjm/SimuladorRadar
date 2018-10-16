@@ -27,5 +27,7 @@ int main()
 
     std::vector<double> aux( O1.get_pos());
     std::cout<<aux[0] <<"  "<<aux[1]<<"  "<<aux[2]<<std::endl;
+
+
     return 0;
 }
