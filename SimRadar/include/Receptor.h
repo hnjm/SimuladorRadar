@@ -2,7 +2,9 @@
 #define RECEPTOR_H
 
 #include <fstream>
-
+#include <complex>
+#include <vector>
+#include <iostream>
 #include "Objetos.h"
 
 class Receptor
@@ -12,6 +14,8 @@ class Receptor
         virtual ~Receptor();
 
         void CreaM_datos()const ;
+        std::vector<std::vector<std::complex<double>>> Simula() const;
+
 
     protected:
 

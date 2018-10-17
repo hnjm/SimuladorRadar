@@ -1,7 +1,8 @@
 #include <iostream>
 
-#include "Antena.h"
-#include "Objetos.h"
+#include "include/Antena.h"
+#include "include/Objetos.h"
+#include "include/Receptor.h"
 
 /*Main function of the SimRadar simulator.   */
 
@@ -27,6 +28,11 @@ int main()
 
     std::vector<double> aux( O1.get_pos());
     std::cout<<aux[0] <<"  "<<aux[1]<<"  "<<aux[2]<<std::endl;
+
+    //Creo un receptor
+    Receptor R1 = Receptor(1000,500,4.2,2.3, O1);
+
+    R1.CreaM_datos();
 
 
     return 0;
