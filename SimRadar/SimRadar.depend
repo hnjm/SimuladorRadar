@@ -1,20 +1,22 @@
 # depslib dependency file v1.0
-1539721638 source:c:\users\usuario\documents\github\simuladorradar\simradar\main.cpp
+1539791619 source:c:\users\usuario\documents\github\simuladorradar\simradar\main.cpp
 	<iostream>
-	"Antena.h"
-	"Objetos.h"
+	"include/Antena.h"
+	"include/Objetos.h"
+	"include/Receptor.h"
 
 1539701749 c:\users\usuario\documents\github\simuladorradar\simradar\include\antena.h
 
-1539711583 source:c:\users\usuario\documents\github\simuladorradar\simradar\src\antena.cpp
-	"Antena.h"
+1539783277 source:c:\users\usuario\documents\github\simuladorradar\simradar\src\antena.cpp
+	"../include/Antena.h"
 	<iostream>
 
-1539718220 c:\users\usuario\documents\github\simuladorradar\simradar\include\objetos.h
+1539792878 c:\users\usuario\documents\github\simuladorradar\simradar\include\objetos.h
 	<vector>
+	<cmath>
 
-1539718237 source:c:\users\usuario\documents\github\simuladorradar\simradar\src\objetos.cpp
-	"Objetos.h"
+1539792831 source:c:\users\usuario\documents\github\simuladorradar\simradar\src\objetos.cpp
+	"../include/Objetos.h"
 	<iostream>
 
 1539728836 source:c:\users\collado\documents\github\simuladorradar\simradar\main.cpp
@@ -45,4 +47,15 @@
 	<vector>
 	<iostream>
 	"Objetos.h"
+
+1539789222 c:\users\usuario\documents\github\simuladorradar\simradar\include\receptor.h
+	<fstream>
+	<complex>
+	<vector>
+	<iostream>
+	<cmath>
+	"Objetos.h"
+
+1539792375 source:c:\users\usuario\documents\github\simuladorradar\simradar\src\receptor.cpp
+	"../include/Receptor.h"
 
