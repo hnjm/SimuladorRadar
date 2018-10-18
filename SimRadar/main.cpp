@@ -25,11 +25,11 @@ int main()
     int numObj = 2;
     std::vector<std::vector<double>> reflector1(numObj,std::vector<double>(3));
 
-    reflector1[0][0] = 2500;
+    reflector1[0][0] = 1800;
     reflector1[0][1] = 0;
     reflector1[0][2] = 0;
 
-    reflector1[1][0] = 2000;
+    reflector1[1][0] = 2500;
     reflector1[1][1] = 0;
     reflector1[1][2] = 0;
 
@@ -38,14 +38,20 @@ int main()
     sigma_relf[1] = sigma_sct;
 
     Antena A1 = Antena(0.3,90,90,2,0.75);
-    Objetos O1 = Objetos(reflector1, sigma_relf, std::vector<std::vector<double>>(numObj,std::vector<double>(3,0)));
+    Objetos O1 = Objetos(reflector1, sigma_relf, std::vector<std::vector<double>>(numObj,std::vector<double>(3,50)));
 
     std::vector<double> aux( O1.get_pos(0));
+    std::vector<double> aux2( O1.get_pos(1));
     std::cout<<aux[0] <<"  "<<aux[1]<<"  "<<aux[2]<<std::endl;
+    std::cout<<aux2[0] <<"  "<<aux2[1]<<"  "<<aux2[2]<<std::endl;
+
+    double d1 = O1.get_dist(0),d2 = O1.get_dist(1);
+
+    std::cout<<"Lad distancia de los reflectores son: "<<d1<<" y "<<d2<<std::endl;
 
     //Creo un receptor
     int N = int(Tfun*PRF),M =int(Tventana*fs) ;
-    Receptor R1 = Receptor(N,M,fs,te, tau, Fc, O1);
+    Receptor R1 = Receptor(N,M,fs,te, tau, Fc, PRF, O1);
 
     R1.CreaM_datos();
 

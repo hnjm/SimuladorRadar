@@ -13,19 +13,20 @@ const double PI = 3.141592653589793;
 class Receptor
 {
     public:
-        Receptor(int , int , double , double, double, double , Objetos Objc);
+        Receptor(int , int , double , double, double, double, double , Objetos Objc);
         virtual ~Receptor();
 
         void CreaM_datos() ;
         std::vector<std::vector<std::complex<double>>> Simula() ;
 
         double Potencia_receptor(double t, double rk , double c);
+        void imprimeVentana(std::vector<std::complex<double>>);
 
 
     protected:
 
     private:
-        double fs, te, tau, Fc;
+        double fs, te, tau, Fc, PRF;
         int N, M;
         Objetos Obj;
 

@@ -43,5 +43,15 @@ int Objetos::numbReflec()
 }
 
 
+void Objetos::actualiza_pos(int n, double Ts)
+{
+    std::vector<double> auxpos(this->reflector[n]);
+    auxpos[0] = auxpos[0] + Ts*this->vel[n][0];
+    auxpos[1] = auxpos[1] + Ts*this->vel[n][1];
+    auxpos[2] = auxpos[2] + Ts*this->vel[n][2];
+
+    set_pos(auxpos,n);
+
+}
 
 
