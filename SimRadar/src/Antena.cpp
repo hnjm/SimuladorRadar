@@ -33,3 +33,8 @@ std::vector<double> Antena::get_angles()
 
     return angles;
 }
+
+double Antena::get_diamter()
+{
+    return this->D;
+}

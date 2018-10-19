@@ -12,6 +12,7 @@ class Antena
         void Antena_gira(double Ts);
         void set_angles(int titas , int phis);
         std::vector<double> get_angles();
+        double get_diamter();
 
     protected:
 

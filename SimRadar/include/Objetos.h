@@ -17,6 +17,7 @@ class Objetos
         double get_dist(int n);
         int numbReflec();
         void actualiza_pos(int n, double Ts);
+        std::vector<double> get_angles(int n);
 
     protected:
 

@@ -4,13 +4,13 @@
 #include "include/Objetos.h"
 #include "include/Receptor.h"
 
-
+//const double PI = 3.141592653589793;
 
 /*Main function of the SimRadar simulator.   */
 
 /*Created by Arturo Collado Rosell 16/10/2018. First version. */
 
-double Tfun = 1.0 ; // Time of radar work [seconds]
+double Tfun = 5.0 ; // Time of radar work [seconds]
 double Fc = 5e9; // carry frequency [Hz]
 double c = 3e8; //speed of light [m/s]
 double lambda = c/Fc ; // wavelength [meters]
@@ -24,21 +24,27 @@ int main()
 {
     int numObj = 2;
     std::vector<std::vector<double>> reflector1(numObj,std::vector<double>(3));
-
-    reflector1[0][0] = 1800;
-    reflector1[0][1] = 0;
+    std::vector<std::vector<double>> velocidadR(numObj,std::vector<double>(3));
+    reflector1[0][0] = 0;
+    reflector1[0][1] = 1800;
     reflector1[0][2] = 0;
 
-    reflector1[1][0] = 2500;
-    reflector1[1][1] = 0;
+    reflector1[1][0] = 0;
+    reflector1[1][1] = 2500;
     reflector1[1][2] = 0;
+
+
+    velocidadR[0][0] = 0; velocidadR[0][1] = 5; velocidadR[0][2] = 0;
+    velocidadR[1][0] = 0 ; velocidadR[1][1] = 10; velocidadR[1][2] = 0;
+
 
     std::vector<double> sigma_relf(numObj);
     sigma_relf[0] = sigma_sct;
     sigma_relf[1] = sigma_sct;
 
-    Antena A1 = Antena(0.3,90,90,2,0.75);
-    Objetos O1 = Objetos(reflector1, sigma_relf, std::vector<std::vector<double>>(numObj,std::vector<double>(3,50)));
+    Antena A1 = Antena(0.3,PI/2.0 - 10*PI/180,PI/2.0,1,0.75);
+
+    Objetos O1 = Objetos(reflector1, sigma_relf, velocidadR);
 
     std::vector<double> aux( O1.get_pos(0));
     std::vector<double> aux2( O1.get_pos(1));
@@ -51,7 +57,7 @@ int main()
 
     //Creo un receptor
     int N = int(Tfun*PRF),M =int(Tventana*fs) ;
-    Receptor R1 = Receptor(N,M,fs,te, tau, Fc, PRF, O1);
+    Receptor R1 = Receptor(N,M,fs,te, tau, Fc, PRF, O1, A1);
 
     R1.CreaM_datos();
 

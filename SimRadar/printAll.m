@@ -22,6 +22,8 @@ D = 1;
 Fc = 5e9;
 lambda = c/Fc;
 
+vmax = PRF/2*lambda/2;
+
 Rmin = te*c/2;
 Rmax = Rmin + Tventana*c/2;
 
@@ -31,5 +33,15 @@ E_tita = sin(pi*(D/lambda)*sin(tita))./(pi*(D/lambda)*sin(tita));
 
 figure; plot(tita*180/pi, E_tita);
 figure; plot(tita*180/pi, 10*log10(abs(E_tita).^2));
+
+
+
+
+xdata = DataIQ(160,520:620);
+v_index1 = -vmax:2*vmax/length(xdata):vmax-2*vmax/length(xdata);
+figure; plot(v_index1,abs(fftshift(fft(xdata))));
+xdata1 = DataIQ(400,520:680);
+v_index2 = -vmax:2*vmax/length(xdata1):vmax-2*vmax/length(xdata1);
+figure; plot(v_index2,abs(fftshift(fft(xdata1))));
 
 

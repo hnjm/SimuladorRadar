@@ -54,4 +54,18 @@ void Objetos::actualiza_pos(int n, double Ts)
 
 }
 
+std::vector<double> Objetos::get_angles(int n)
+{
+    std::vector<double> angles_n(2);
+    angles_n[0] = std::atan(this->reflector[n][1]/this->reflector[n][0]);
+    double aux = std::sqrt(this->reflector[n][0]*this->reflector[n][0] + this->reflector[n][1]*this->reflector[n][1]);
+    angles_n[1] = std::atan(aux/this->reflector[n][2]);
+
+    return angles_n;
+
+
+
+}
+
+
 
