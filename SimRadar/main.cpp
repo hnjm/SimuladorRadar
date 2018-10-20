@@ -10,7 +10,7 @@
 
 /*Created by Arturo Collado Rosell 16/10/2018. First version. */
 
-double Tfun = 5.0 ; // Time of radar work [seconds]
+double Tfun = 6.0 ; // Time of radar work [seconds]
 double Fc = 5e9; // carry frequency [Hz]
 double c = 3e8; //speed of light [m/s]
 double lambda = c/Fc ; // wavelength [meters]
@@ -42,7 +42,7 @@ int main()
     sigma_relf[0] = sigma_sct;
     sigma_relf[1] = sigma_sct;
 
-    Antena A1 = Antena(0.3,PI/2.0 - 10*PI/180,PI/2.0,1,0.75);
+    Antena A1 = Antena(2.0*PI/5.0,PI/2.0 - 10*PI/180,PI/2.0,1,0.75);
 
     Objetos O1 = Objetos(reflector1, sigma_relf, velocidadR);
 
@@ -57,7 +57,7 @@ int main()
 
     //Creo un receptor
     int N = int(Tfun*PRF),M =int(Tventana*fs) ;
-    Receptor R1 = Receptor(N,M,fs,te, tau, Fc, PRF, O1, A1);
+    Receptor R1 = Receptor(N,M,fs,te, tau, Fc, PRF, c, O1, A1);
 
     R1.CreaM_datos();
 

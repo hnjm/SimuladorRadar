@@ -2,14 +2,9 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="main.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include\Receptor.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="552" topLine="3" />
-		</Cursor>
-	</File>
-	<File name="include\Antena.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="354" topLine="0" />
+			<Cursor1 position="916" topLine="8" />
 		</Cursor>
 	</File>
 	<File name="include\Objetos.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -17,14 +12,14 @@
 			<Cursor1 position="557" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="include\Receptor.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="main.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="185" topLine="4" />
+			<Cursor1 position="327" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="src\Antena.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="782" topLine="8" />
+			<Cursor1 position="381" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="src\Objetos.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -34,7 +29,12 @@
 	</File>
 	<File name="src\Receptor.cpp" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1900" topLine="46" />
+			<Cursor1 position="5808" topLine="184" />
+		</Cursor>
+	</File>
+	<File name="include\Antena.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="93" topLine="0" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

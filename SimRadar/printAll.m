@@ -1,3 +1,5 @@
+clear; 
+
 Dreal = load('data_real.txt');
 Dimag = load('data_imag.txt');
 

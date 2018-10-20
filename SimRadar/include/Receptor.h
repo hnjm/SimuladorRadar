@@ -9,12 +9,12 @@
 #include "Objetos.h"
 #include "Antena.h"
 
-const double PI = 3.141592653589793;
+//const double PI = 3.141592653589793;
 
 class Receptor
 {
     public:
-        Receptor(int , int , double , double, double, double, double , Objetos Objc, Antena Antc);
+        Receptor(int , int , double , double, double, double, double, double , Objetos Objc, Antena Antc);
         virtual ~Receptor();
 
         void CreaM_datos() ;
@@ -24,12 +24,13 @@ class Receptor
         void imprimeVentana(std::vector<std::complex<double>>);
         double Pot_recibida(int n);
         double patron_sinc(std::vector<double> angulosAntena, std::vector<double> angulosReflector );
+        std::complex<double> signal_recibida_pulso_rectangular(double rk, double Fc, double fase_0, double c);
 
 
     protected:
 
     private:
-        double fs, te, tau, Fc, PRF;
+        double fs, te, tau, Fc, PRF, c;
         int N, M;
         Objetos Obj;
         Antena Ant;

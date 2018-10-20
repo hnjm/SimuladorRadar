@@ -1,7 +1,7 @@
 #include "../include/Receptor.h"
 
 
-Receptor::Receptor(int Nc, int Mc, double fsc, double tec, double tauc, double Fcc, double PRFc, Objetos Objc, Antena Antc): N(Nc), M(Mc), fs(fsc), te(tec), tau(tauc), Fc(Fcc), PRF(PRFc), Obj(Objc), Ant(Antc)
+Receptor::Receptor(int Nc, int Mc, double fsc, double tec, double tauc, double Fcc, double PRFc, double cc, Objetos Objc, Antena Antc): N(Nc), M(Mc), fs(fsc), te(tec), tau(tauc), Fc(Fcc), PRF(PRFc), c(cc), Obj(Objc), Ant(Antc)
 {
 
 }
@@ -45,8 +45,8 @@ std::vector<std::vector<std::complex<double>>> Receptor::Simula()
     for(int n=0; n<N; ++n)
     {
         Ant.Antena_gira(1.0/this->PRF);
-       // std::vector<double> angulo_anten(Ant.get_angles());
-        //std::cout<<angulo_anten[0]<<"  "<< angulo_anten[1] <<std::endl;
+       /* std::vector<double> angulo_anten(Ant.get_angles());
+        std::cout<<angulo_anten[0]<<"  "<< angulo_anten[1] <<std::endl;*/
         for(int k=0 ; k<K ; ++k)
         {
             Obj.actualiza_pos(k, 1.0/PRF);
@@ -56,7 +56,7 @@ std::vector<std::vector<std::complex<double>>> Receptor::Simula()
 
             for(int i=0 ; i< M; ++i)
             {
-                auxPot = Potencia_receptor(t[i],rk, 3e8);
+                auxPot = Potencia_receptor(t[i],rk, this->c);
                 if(auxPot != 0)
                 {
                      Pot_r = Pot_recibida(k);
@@ -68,7 +68,7 @@ std::vector<std::vector<std::complex<double>>> Receptor::Simula()
                 }
                 auxPot *= Pot_r;
 
-                P[k][i] = std::complex<double>( auxPot*std::cos(2* PI * Fc* ( - 2.0*rk/3e8)) ,auxPot* std::sin(2* PI * Fc* ( - 2.0*rk/3e8)));
+                P[k][i] = auxPot*signal_recibida_pulso_rectangular( rk,  this->Fc,  0,  this->c);
                 //P[k][i] = std::complex<double>( auxPot*std::cos(2* PI * Fc* (t[i] - 2.0*rk/3e8)) ,auxPot* std::sin(2* PI * Fc* (t[i] - 2.0*rk/3e8)));
 
 
@@ -177,36 +177,54 @@ double Receptor::Pot_recibida(int n)
 
 double Receptor::patron_sinc(std::vector<double>angulosAntena, std::vector<double>angulosReflector)
 {
-    double lambda = 3.0e8/this->Fc;
+    double lambda = this->c/this->Fc;
     double D = Ant.get_diamter();
 
     double Ant_tita = angulosAntena[0];
     double Ant_phi = angulosAntena[1];
-    double reflec_tita = angulosReflector[0];
+    double reflec_tita = angulosReflector[0]; if(reflec_tita < 0) reflec_tita = 2.0*PI+ reflec_tita;
     double reflec_phi = angulosReflector[1];
-
+    double diff_tita;
+    double aux;
     double E_phi,E_tita;
 
-    if(reflec_tita-Ant_tita == 0 && reflec_phi-Ant_phi!=0 )
+    if(std::abs(reflec_tita-Ant_tita)>PI)
+    {
+        aux = std::abs(reflec_tita-Ant_tita)-PI;
+        diff_tita = PI-aux;
+
+    }
+    else
+    {
+        diff_tita = std::abs(reflec_tita-Ant_tita);
+    }
+
+
+
+
+
+    if(diff_tita >=PI/2.0) return 0;
+
+    if(diff_tita == 0 && reflec_phi-Ant_phi!=0 )
     {
          E_tita = 1.0 ;
          E_phi = std::sin(PI * (D/lambda)*std::sin(reflec_phi-Ant_phi) )/ (PI * (D/lambda)*std::sin(reflec_phi-Ant_phi)) ;
     }
-    else if(reflec_tita-Ant_tita != 0 && reflec_phi-Ant_phi==0)
+    else if(diff_tita != 0 && reflec_phi-Ant_phi==0)
     {
-         E_tita = std::sin(PI * (D/lambda)*std::sin(reflec_tita-Ant_tita) )/ (PI * (D/lambda)*std::sin(reflec_tita-Ant_tita)) ;
+         E_tita = std::sin(PI * (D/lambda)*std::sin(diff_tita) )/ (PI * (D/lambda)*std::sin(diff_tita)) ;
          E_phi = 1.0 ;
 
 
     }
-    else if(reflec_tita-Ant_tita == 0 && reflec_phi-Ant_phi==0)
+    else if(diff_tita == 0 && reflec_phi-Ant_phi==0)
     {
          E_tita = 1.0 ;
          E_phi = 1.0 ;
     }
     else
     {
-         E_tita = std::sin(PI * (D/lambda)*std::sin(reflec_tita-Ant_tita) )/ (PI * (D/lambda)*std::sin(reflec_tita-Ant_tita)) ;
+         E_tita = std::sin(PI * (D/lambda)*std::sin(diff_tita) )/ (PI * (D/lambda)*std::sin(diff_tita)) ;
          E_phi = std::sin(PI * (D/lambda)*std::sin(reflec_phi-Ant_phi) )/ (PI * (D/lambda)*std::sin(reflec_phi-Ant_phi)) ;
     }
     //std::cout<<reflec_tita-Ant_tita<<std::endl;
@@ -215,5 +233,12 @@ double Receptor::patron_sinc(std::vector<double>angulosAntena, std::vector<doubl
     return E_tita*E_phi;
 
 
+}
+
+
+std::complex<double> Receptor::signal_recibida_pulso_rectangular(double rk, double Fc, double fase_0, double c)
+{
+    //señal en banda base
+   return std::complex<double>( std::cos(2.0* PI * Fc* ( - 2.0*rk/c) + fase_0) , std::sin(2.0* PI * Fc* ( - 2.0*rk/c)+ fase_0));
 }
 

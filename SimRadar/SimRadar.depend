@@ -20,34 +20,38 @@
 	"../include/Objetos.h"
 	<iostream>
 
-1539728836 source:c:\users\collado\documents\github\simuladorradar\simradar\main.cpp
+1540010496 source:c:\users\collado\documents\github\simuladorradar\simradar\main.cpp
 	<iostream>
 	"include/Antena.h"
 	"include/Objetos.h"
 	"include/Receptor.h"
 
-1539728661 source:c:\users\collado\documents\github\simuladorradar\simradar\src\antena.cpp
+1540010626 source:c:\users\collado\documents\github\simuladorradar\simradar\src\antena.cpp
 	"../include/Antena.h"
 	<iostream>
 
-1539728679 source:c:\users\collado\documents\github\simuladorradar\simradar\src\objetos.cpp
+1540008647 source:c:\users\collado\documents\github\simuladorradar\simradar\src\objetos.cpp
 	"../include/Objetos.h"
 	<iostream>
 
-1539733352 source:c:\users\collado\documents\github\simuladorradar\simradar\src\receptor.cpp
+1540013073 source:c:\users\collado\documents\github\simuladorradar\simradar\src\receptor.cpp
 	"../include/Receptor.h"
 
-1539725368 c:\users\collado\documents\github\simuladorradar\simradar\include\antena.h
-
-1539725368 c:\users\collado\documents\github\simuladorradar\simradar\include\objetos.h
+1540010699 c:\users\collado\documents\github\simuladorradar\simradar\include\antena.h
 	<vector>
 
-1539730726 c:\users\collado\documents\github\simuladorradar\simradar\include\receptor.h
+1540008647 c:\users\collado\documents\github\simuladorradar\simradar\include\objetos.h
+	<vector>
+	<cmath>
+
+1540010717 c:\users\collado\documents\github\simuladorradar\simradar\include\receptor.h
 	<fstream>
 	<complex>
 	<vector>
 	<iostream>
+	<cmath>
 	"Objetos.h"
+	"Antena.h"
 
 1539960465 c:\users\usuario\documents\github\simuladorradar\simradar\include\receptor.h
 	<fstream>

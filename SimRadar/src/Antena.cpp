@@ -15,7 +15,17 @@ Antena::~Antena()
 
 void Antena::Antena_gira(double Ts)
 {
-    this->tita = this->tita + this->W*Ts;
+    if(this->tita + this->W*Ts >= 2.0*PI)
+    {
+        this->tita = this->tita + this->W*Ts - 2.0*PI;
+
+    }
+    else
+    {
+        this->tita = this->tita + this->W*Ts;
+    }
+
+
     //phi se mantiene constante.
 }
 
