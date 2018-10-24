@@ -1,6 +1,3 @@
-
-clear; 
-
 Dreal = load('data_real.txt');
 Dimag = load('data_imag.txt');
 
@@ -55,7 +52,7 @@ rango = 10:1:1000;
 [X, Y]  = pol2cart(th, r);
 
 map = ones(991,401);         
-
+map( map<-1e38 | map>1e38  ) = -inf;
 
 figure();
 surf(X, Y, map, 'edgecolor','none');  shading flat;

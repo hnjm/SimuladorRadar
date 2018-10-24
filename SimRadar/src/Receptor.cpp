@@ -12,7 +12,7 @@ Receptor::~Receptor()
 }
 
 
-double Receptor::Potencia_receptor(double t, double rk, double c)
+double Receptor::Potencia_receptor(double t, double rk)
 {
     //if(t-2.0*rk/c >0 && t-2.0*rk/c< this->tau )
     if(t>=2.0*rk/c && t<=2.0*rk/c + this->tau )
@@ -27,26 +27,41 @@ std::vector<std::vector<std::complex<double>>> Receptor::Simula()
 
     std::cout<<"Las dimensiones de la matriz de datos son: "<< matrix.size()<<" x "<< matrix[0].size()<<std::endl;
 
-    // tiempo de adquisicion relativo a cada ventana de adquisicion
-    std::vector<double> t(M);
-    for(int tt=0; tt<M ; ++tt)
-    {
-        t[tt] = te + tt/fs ;
 
-    }
     int K = Obj.numbReflec(); // Por el momento un unico reflector
     std::cout<<"El numero de reflectores es : "<<K<<std::endl;
 
     std::vector<std::vector<std::complex<double>>> P (K, std::vector<std::complex<double>> (M) );
     //std::vector<std::complex<double>> Pdef (M,0);
 
+    //To save antenna angles data in every pulse time. the range  in meters is saved to.
+    std::fstream archivo_angles, archivo_rango;
+    archivo_angles.open("data_angles.txt", std::fstream::out);
+    archivo_rango.open("data_range.txt", std::fstream::out);
+    // tiempo de adquisicion relativo a cada ventana de adquisicion
+    std::vector<double> t(M);
+    std::vector<double> r(M);
+
+    for(int tt=0; tt<M ; ++tt)
+    {
+        t[tt] = te + tt/fs ;
+        r[tt] = t[tt]*c/2.0;
+        archivo_rango<< r[tt]<<std::endl; // guardo en un archivo el vector de rango en el cual deberia estar un objeto para verlo en la ventana de recepcion..
+
+    }
+
     double auxPot;
     double Pot_r;
+    std::vector<double> angles(2);
     for(int n=0; n<N; ++n)
     {
         Ant.Antena_gira(1.0/this->PRF);
-       /* std::vector<double> angulo_anten(Ant.get_angles());
-        std::cout<<angulo_anten[0]<<"  "<< angulo_anten[1] <<std::endl;*/
+
+
+
+        angles = Ant.get_angles();
+        archivo_angles<< angles[0]<<" "<<angles[1]<<std::endl;
+
         for(int k=0 ; k<K ; ++k)
         {
             Obj.actualiza_pos(k, 1.0/PRF);
@@ -56,7 +71,8 @@ std::vector<std::vector<std::complex<double>>> Receptor::Simula()
 
             for(int i=0 ; i< M; ++i)
             {
-                auxPot = Potencia_receptor(t[i],rk, this->c);
+
+                auxPot = Potencia_receptor(t[i],rk);
                 if(auxPot != 0)
                 {
                      Pot_r = Pot_recibida(k);
@@ -70,6 +86,10 @@ std::vector<std::vector<std::complex<double>>> Receptor::Simula()
 
                 P[k][i] = auxPot*signal_recibida_pulso_rectangular( rk,  this->Fc,  0,  this->c);
                 //P[k][i] = std::complex<double>( auxPot*std::cos(2* PI * Fc* (t[i] - 2.0*rk/3e8)) ,auxPot* std::sin(2* PI * Fc* (t[i] - 2.0*rk/3e8)));
+
+                //P[k][i] = std::complex<double>( auxPot*std::cos(2* PI * Fc* ( - 2.0*rk/c)) ,auxPot* std::sin(2* PI * Fc* ( - 2.0*rk/c)));
+                //P[k][i] = std::complex<double>( auxPot*std::cos(2* PI * Fc* (t[i] - 2.0*rk/c)) ,auxPot* std::sin(2* PI * Fc* (t[i] - 2.0*rk/c)));
+
 
 
             }
@@ -104,7 +124,8 @@ std::vector<std::vector<std::complex<double>>> Receptor::Simula()
 
     }
 
-
+    archivo_angles.close();
+    archivo_rango.close();
     return matrix;
 }
 
@@ -116,8 +137,10 @@ void Receptor::CreaM_datos()
     std::fstream archivo_real;
     std::fstream archivo_imag;
 
+
     archivo_real.open("data_real.txt", std::fstream::out);
     archivo_imag.open("data_imag.txt", std::fstream::out);
+
 
     std::vector<std::vector<std::complex<double>>> matrix(Simula());
 
@@ -133,11 +156,13 @@ void Receptor::CreaM_datos()
         archivo_real<<std::endl;
         archivo_imag<<std::endl;
 
+
     }
 
 
     archivo_real.close();
     archivo_imag.close();
+
 }
 
 void Receptor::imprimeVentana(std::vector<std::complex<double>> ventanaRecepcion)
@@ -177,7 +202,9 @@ double Receptor::Pot_recibida(int n)
 
 double Receptor::patron_sinc(std::vector<double>angulosAntena, std::vector<double>angulosReflector)
 {
+
     double lambda = this->c/this->Fc;
+
     double D = Ant.get_diamter();
 
     double Ant_tita = angulosAntena[0];

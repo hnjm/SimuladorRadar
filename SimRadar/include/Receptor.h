@@ -20,7 +20,7 @@ class Receptor
         void CreaM_datos() ;
         std::vector<std::vector<std::complex<double>>> Simula() ;
 
-        double Potencia_receptor(double t, double rk , double c);
+        double Potencia_receptor(double t, double rk );
         void imprimeVentana(std::vector<std::complex<double>>);
         double Pot_recibida(int n);
         double patron_sinc(std::vector<double> angulosAntena, std::vector<double> angulosReflector );

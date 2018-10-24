@@ -42,7 +42,10 @@ int main()
     sigma_relf[0] = sigma_sct;
     sigma_relf[1] = sigma_sct;
 
+
     Antena A1 = Antena(2.0*PI/5.0,PI/2.0 - 10*PI/180,PI/2.0,1,0.75);
+
+
 
     Objetos O1 = Objetos(reflector1, sigma_relf, velocidadR);
 
@@ -53,11 +56,14 @@ int main()
 
     double d1 = O1.get_dist(0),d2 = O1.get_dist(1);
 
-    std::cout<<"Lad distancia de los reflectores son: "<<d1<<" y "<<d2<<std::endl;
+    std::cout<<"La distancia de los reflectores son: "<<d1<<" y "<<d2<<std::endl;
 
     //Creo un receptor
     int N = int(Tfun*PRF),M =int(Tventana*fs) ;
+
     Receptor R1 = Receptor(N,M,fs,te, tau, Fc, PRF, c, O1, A1);
+
+
 
     R1.CreaM_datos();
 
