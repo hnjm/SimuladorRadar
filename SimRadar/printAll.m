@@ -1,3 +1,4 @@
+clear;
 Dreal = load('data_real.txt');
 Dimag = load('data_imag.txt');
 
@@ -43,5 +44,23 @@ figure; plot(v_index1,abs(fftshift(fft(xdata))));
 xdata1 = DataIQ(400,520:680);
 v_index2 = -vmax:2*vmax/length(xdata1):vmax-2*vmax/length(xdata1);
 figure; plot(v_index2,abs(fftshift(fft(xdata1))));
+
+%%
+acimut_deg = 0:pi/200:2*pi;
+rango = 10:1:1000;
+
+[th, r] = meshgrid(acimut_deg, rango);
+[X, Y]  = pol2cart(th, r);
+
+map = ones(991,401);         
+
+
+figure();
+surf(X, Y, map, 'edgecolor','none');  shading flat;
+view(0,90);
+axis equal;
+xlabel('Rango [Km]'); ylabel('Rango [Km]'); zlabel('Energia');
+colorbar; 
+title('Doppler: channel H')
 
 
