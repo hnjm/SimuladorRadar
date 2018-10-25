@@ -1,19 +1,12 @@
-
+%Script para leer la matriz de datos y graficar la potencia de la señal en
+%un grafico polar.
+% Autor: Arturo Collado Rosell,  fecha: 25/10/18
 clear; 
 
 Dreal = load('data_real.txt');
 Dimag = load('data_imag.txt');
 
 DataIQ = Dreal + 1j*Dimag ;
-
-figure; imagesc(abs(DataIQ));
-
-
-% vreal = load('ventana_real.txt');
-% vimag = load('ventana_imag.txt');
-
-% figure; plot(vreal);
-% figure; plot(vimag);
 
 te = 10e-6;
 c = 3e8;
@@ -48,13 +41,16 @@ v_index2 = -vmax:2*vmax/length(xdata1):vmax-2*vmax/length(xdata1);
 figure; plot(v_index2,abs(fftshift(fft(xdata1))));
 
 %%
-acimut_deg = 0:pi/200:2*pi;
-rango = 10:1:1000;
+N = size(Dreal,2);
+w = 2*pi/5 ; %velocidad angular. [rad/s]
+
+acimut_deg = linspace(0,2*pi, N);
+rango = Rmin:c/fs/2:Rmax-c/fs/2;
 
 [th, r] = meshgrid(acimut_deg, rango);
 [X, Y]  = pol2cart(th, r);
 
-map = ones(991,401);         
+map = abs(DataIQ);         
 
 
 figure();

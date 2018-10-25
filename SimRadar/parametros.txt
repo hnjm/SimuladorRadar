@@ -1,0 +1,8 @@
+5.0			Tiempo de funcionamiento del radar [s]
+5e9                     Frecuencia de la portadora [Hz]
+3e8                     Velocidad de la luz [m/s]
+50e6                    Frecuencia de muestreo en rango [Hz]
+1000                    Frecuencia de repetición de pulsos [Hz]
+10e-6                   tiempo de inicio de la ventana de recepción [s]
+1e-5                    Duración de la ventana de recepción [s]
+2.5e-6                  Duración del pulso transmitido [s] 

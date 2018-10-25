@@ -9,19 +9,89 @@
 /*Main function of the SimRadar simulator.   */
 
 /*Created by Arturo Collado Rosell 16/10/2018. First version. */
+/*
+static double Tfun = 5.0 ; // Time of radar work [seconds]
+static double Fc = 5e9; // carry frequency [Hz]
+static double c = 3e8; //speed of light [m/s]
+static double lambda = c/Fc ; // wavelength [meters]
+static double sigma_sct = 1.0; // scattering coeficient
+static double fs = 50e6; // sampling frequency [Hz]
+static double PRF = 1000; //[HZ]
+static double te = 10e-6; // [s]tiempo entre que se lanza el pulso y se abre la ventana de recepcion
+static double Tventana = 1e-5 ; // [s] tiempo que esta abierta la ventana de recepción
+static double tau = 2.5e-6; // [s] duracion del pulso transmitido
+*/
 
-double Tfun = 6.0 ; // Time of radar work [seconds]
-double Fc = 5e9; // carry frequency [Hz]
-double c = 3e8; //speed of light [m/s]
-double lambda = c/Fc ; // wavelength [meters]
-double sigma_sct = 1.0; // scattering coeficient
-double fs = 50e6; // sampling frequency [Hz]
-double PRF = 1000; //[HZ]
-double te = 10e-6; // [s]tiempo entre que se lanza el pulso y se abre la ventana de recepcion
-double Tventana = 1e-5 ; // [s] tiempo que esta abierta la ventana de recepción
-double tau = 2.5e-6; // [s] duracion del pulso transmitido
+
+ double Tfun  ; // Time of radar work [seconds]
+ double Fc ; // carry frequency [Hz]
+ double c ; //speed of light [m/s]
+ double lambda  ; // wavelength [meters]
+ double sigma_sct = 1.0; // scattering coeficient
+ double fs ; // sampling frequency [Hz]
+ double PRF = 1000; //[HZ]
+ double te ; // [s]tiempo entre que se lanza el pulso y se abre la ventana de recepcion
+ double Tventana ; // [s] tiempo que esta abierta la ventana de recepción
+ double tau ; // [s] duracion del pulso transmitido
+
+
+//Función que lee los parámetros desde el archivo de texto.
+void lee_parametros(std::string filename)
+{
+    std::string line;
+    std::fstream archivo;
+    std::vector<double> parametros;
+    try{
+        archivo.open("parametros.txt", std::fstream::in);
+        if(!archivo.is_open())
+            throw 4;
+
+    }catch(...){std::cout<<"Hubo un problema abriendo el archivo";}
+
+    int i=0;
+    while (getline (archivo,line) )
+    {
+     //std::cout<<line<<std::endl;
+     i++;
+    parametros.push_back(std::stod (line)) ;
+    }
+
+
+    Tfun = parametros[0] ; // Time of radar work [seconds]
+    Fc = parametros[1]; // carry frequency [Hz]
+    c = parametros[2]; //speed of light [m/s]
+    lambda = c/Fc ; // wavelength [meters]
+    fs = parametros[3]; // sampling frequency [Hz]
+    PRF = parametros[4]; //[HZ]
+    te = parametros[5]; // [s]tiempo entre que se lanza el pulso y se abre la ventana de recepcion
+    Tventana = parametros[6] ; // [s] tiempo que esta abierta la ventana de recepción
+    tau = parametros[7]; // duracion del pulso transmitido
+
+
+
+    archivo.close();
+}
+
+
+
 int main()
 {
+    lee_parametros("parametros.txt");
+
+    std::cout<<"Tfun =  "<<Tfun<<std::endl;
+    std::cout<<"Fc =  "<<Fc<<std::endl;
+    std::cout<<"c =  "<<c<<std::endl;
+    std::cout<<"lambda =  "<<lambda<<std::endl;
+    std::cout<<"fs =  "<<fs<<std::endl;
+    std::cout<<"PRF =  "<<PRF<<std::endl;
+    std::cout<<"te =  "<<te<<std::endl;
+    std::cout<<"Tventana =  "<<Tventana<<std::endl;
+    std::cout<<"tau =  "<<tau<<std::endl;
+
+
+
+
+
     int numObj = 2;
     std::vector<std::vector<double>> reflector1(numObj,std::vector<double>(3));
     std::vector<std::vector<double>> velocidadR(numObj,std::vector<double>(3));

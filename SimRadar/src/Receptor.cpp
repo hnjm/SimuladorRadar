@@ -53,8 +53,18 @@ std::vector<std::vector<std::complex<double>>> Receptor::Simula()
     double auxPot;
     double Pot_r;
     std::vector<double> angles(2);
+    std::endl; std::endl; std::endl;
+    std::cout<<"====================Comienza la simulacion==================="<<std::endl;
+    double porciento = 0;
     for(int n=0; n<N; ++n)
     {
+
+        if( n%300 ==0 )
+        {
+            porciento = double(n)/N * 100.0 ;
+            std::cout<<"Porciento simulado del total: "<< porciento <<std::endl;
+        }
+
         Ant.Antena_gira(1.0/this->PRF);
 
 
@@ -126,6 +136,9 @@ std::vector<std::vector<std::complex<double>>> Receptor::Simula()
 
     archivo_angles.close();
     archivo_rango.close();
+
+    std::cout<<"Porciento simulado del total: "<< 100 <<std::endl;
+    std::cout<<"Ahora se esta almacenando los datos en un archivo de texto" <<std::endl;
     return matrix;
 }
 
